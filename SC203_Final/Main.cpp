@@ -25,16 +25,17 @@ void testDFID(RandomGraphGenerator& sampleGraph) {
 }
 
 void case1() {
-    long int v = 4;
-    long int e = 4;
+    long int v = 7;
+    long int e = 6;
 
 
     RandomGraphGenerator sampleGraph(v, e);
-    sampleGraph.generateGraph();
+    //sampleGraph.generateGraph();
 
-    //sampleGraph.saveToFile("Normal test case with many vertices and meodium edges", "./Dataset/Testcase8.txt", v, e);
+    //sampleGraph.saveToFile("Initial Test case!", "./Dataset/Testcase0.txt");
 
-    //sampleGraph.readFromFile("./Dataset/Testcase8.txt");
+    string path = "./Dataset/Testcase8.txt";
+    sampleGraph.readFromFile(path);
     sampleGraph.printGraph();
 
 

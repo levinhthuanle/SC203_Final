@@ -33,41 +33,73 @@ public:
         return distribution(generator);
     }
 
-    bool readFromFile(const string& filename) {
-        ifstream file(filename);
+    bool readFromFile(const std::string& filename) {
+        std::ifstream file(filename);
         if (!file.is_open()) {
-            cerr << "Error: Unable to open file " << filename << endl;
+            std::cerr << "Error: Unable to open file " << filename << std::endl;
             return false;
         }
 
-        string line;
-        getline(file, line); // Skip the first line
-        getline(file, line);
-        stringstream ss_edges(line.substr(line.find(":") + 2));
-        ss_edges >> num_edges;
+        std::string line;
 
         getline(file, line);
-        stringstream ss_vertices(line.substr(line.find(":") + 2));
-        ss_vertices >> num_vertices;
+        // Read number of edges
+        if (!std::getline(file, line)) {
+            std::cerr << "Error: Unable to read number of edges." << std::endl;
+            return false;
+        }
+        std::stringstream ss_edges(line.substr(line.find(":") + 1));
+        if (!(ss_edges >> num_edges)) {
+            std::cerr << "Error: Invalid number of edges." << std::endl;
+            return false;
+        }
 
-        getline(file, line); // Skip the adjacency matrix header
+        // Read number of vertices
+        if (!std::getline(file, line)) {
+            std::cerr << "Error: Unable to read number of vertices." << std::endl;
+            return false;
+        }
+        std::stringstream ss_vertices(line.substr(line.find(":") + 1));
+        if (!(ss_vertices >> num_vertices)) {
+            std::cerr << "Error: Invalid number of vertices." << std::endl;
+            return false;
+        }
 
-        adj_matrix.resize(num_vertices, vector<int>(num_vertices, 0));
+        // Initialize the adjacency matrix and node values
+        adj_matrix.resize(num_vertices, std::vector<int>(num_vertices, 0));
         node_values.resize(num_vertices, 0);
 
+        getline(file, line);
+        // Read adjacency matrix
         for (long int i = 0; i < num_vertices; ++i) {
-            getline(file, line);
-            stringstream ss(line);
+            if (!std::getline(file, line)) {
+                std::cerr << "Error: Unable to read adjacency matrix row." << std::endl;
+                return false;
+            }
+
+            
+            std::stringstream ss(line);
             for (long int j = 0; j < num_vertices; ++j) {
-                ss >> adj_matrix[i][j];
+                if (!(ss >> adj_matrix[i][j])) {
+                    std::cerr << "Error: Invalid adjacency matrix value." << std::endl;
+                    return false;
+                }
             }
         }
 
-        getline(file, line); // Skip the node values header
+        // Read node values
+        if (!std::getline(file, line)) {
+            std::cerr << "Error: Unable to read node values." << std::endl;
+            return false;
+        }
 
-        stringstream ss_node_values(line.substr(line.find(":") + 2));
+        getline(file, line);
+        std::stringstream ss_node_values(line.substr(line.find(":") + 1));
         for (long int i = 0; i < num_vertices; ++i) {
-            ss_node_values >> node_values[i];
+            if (!(ss_node_values >> node_values[i])) {
+                std::cerr << "Error: Invalid node value." << std::endl;
+                return false;
+            }
         }
 
         file.close();

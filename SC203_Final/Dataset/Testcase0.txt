@@ -1,11 +1,13 @@
-Basic Testcase with small edges and vertices
-Edges: 5
-Vertices: 4
+Initial Test case!
+Edges: 6
+Vertices: 7
 Adjacency Matrix:
-0 0 0 0 68 
-0 0 1 35 0 
-0 1 0 0 0 
-0 35 0 0 42 
-68 0 0 42 0 
+0 0 0 29 0 0 22 
+0 0 0 0 44 0 0 
+0 0 0 52 0 0 0 
+29 0 52 0 0 0 0 
+0 44 0 0 0 0 70 
+0 0 0 0 0 0 87 
+22 0 0 0 70 87 0 
 Node Values:
-0 2 1 1 1 
+1 0 3 2 6 5 6 
