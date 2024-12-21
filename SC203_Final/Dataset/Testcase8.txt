@@ -1,0 +1,13 @@
+Normal test case with many vertices and meodium edges
+Edges: 7
+Vertices: 4
+Adjacency Matrix:
+0 68 0 0 0 0 0 
+68 0 1 0 0 0 0 
+0 1 0 0 0 0 0 
+0 0 0 0 0 35 0 
+0 0 0 0 0 0 0 
+0 0 0 35 0 0 42 
+0 0 0 0 0 42 0 
+Node Values:
+6 5 6 6 6 6 3 
